@@ -1,0 +1,16 @@
+[package]
+name = "todo-cli"
+version = "0.1.0"
+edition = "2024"
+
+
+[dependencies]
+# 루트에 정의된 버전을 그대로 상속받습니다.
+tokio = { workspace = true }
+serde = { workspace = true }
+serde_json = { workspace = true }
+todo = { workspace = true }
+chrono = { workspace = true }
+
+# 이 패키지에서만 개별적으로 쓰는 라이브러리는 평소처럼 추가하세요.
+reqwest = { version = "0.11", features = ["json"] }
