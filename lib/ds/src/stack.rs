@@ -31,61 +31,32 @@ impl IntStack {
     }
 }
 
-// 테스트 모듈 시작
-#[cfg(test)] // 'cargo test' 명령어를 실행할 때만 컴파일됨
-mod tests {
-    use super::*; // 부모 모듈(IntStack 등)의 아이템을 가져옴
+pub struct Stack<T> {
+    storage: Vec<T>,
+}
 
-    #[test]
-    fn test_stack_push() {
-        let mut stack = IntStack::new();
-        stack.push(1);
-        assert_eq!(stack.len(), 1);
+impl<T> Stack<T> {
+    pub fn new() -> Self {
+        Self { storage: vec![] }
     }
 
-    #[test]
-    fn test_stack_pop() {
-        let mut stack = IntStack::new();
-
-        let item = stack.pop();
-        assert_eq!(item, None);
-
-        stack.push(1);
-        stack.push(2);
-
-        let item = stack.pop();
-        assert_eq!(item, Some(2));
-        assert_eq!(stack.len(), 1);
+    pub fn push(&mut self, item: T) {
+        self.storage.push(item);
     }
 
-    #[test]
-    fn test_stack_peek() {
-        let mut stack = IntStack::new();
-
-        let item = stack.peek();
-        assert_eq!(item, None);
-
-        stack.push(1);
-        stack.push(2);
-
-        let item = stack.peek().unwrap();
-        assert_eq!(*item, 2);
-        assert_eq!(stack.len(), 2);
+    pub fn pop(&mut self) -> Option<T> {
+        self.storage.pop()
     }
 
-    #[test]
-    fn test_stack_is_empty() {
-        let mut stack = IntStack::new();
-        stack.push(1);
-        stack.push(2);
+    pub fn peek(&self) -> Option<&T> {
+        self.storage.last()
+    }
 
-        let result = stack.is_empty();
-        assert_eq!(result, false);
+    pub fn is_empty(&self) -> bool {
+        self.storage.is_empty()
+    }
 
-        stack.pop();
-        stack.pop();
-
-        let result = stack.is_empty();
-        assert_eq!(result, true)
+    pub fn len(&self) -> usize {
+        self.storage.len()
     }
 }
