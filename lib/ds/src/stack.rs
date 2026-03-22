@@ -40,6 +40,12 @@ impl<T> Stack<T> {
         Self { storage: vec![] }
     }
 
+    pub fn with_capacity(capacity: usize) -> Self {
+        Self {
+            storage: Vec::with_capacity(capacity),
+        }
+    }
+
     pub fn push(&mut self, item: T) {
         self.storage.push(item);
     }
@@ -52,11 +58,21 @@ impl<T> Stack<T> {
         self.storage.last()
     }
 
+    pub fn peek_mut(&mut self) -> Option<&mut T> {
+        self.storage.last_mut()
+    }
+
     pub fn is_empty(&self) -> bool {
         self.storage.is_empty()
     }
 
     pub fn len(&self) -> usize {
         self.storage.len()
+    }
+}
+
+impl<T> Default for Stack<T> {
+    fn default() -> Self {
+        Self::new()
     }
 }
