@@ -1,5 +1,6 @@
 use std::collections::VecDeque;
 
+#[derive(Debug, PartialEq, Clone)]
 pub struct Queue<T> {
     storage: VecDeque<T>,
 }
@@ -45,5 +46,11 @@ impl<T> Queue<T> {
 impl<T> Default for Queue<T> {
     fn default() -> Self {
         Self::new()
+    }
+}
+
+impl<T> From<VecDeque<T>> for Queue<T> {
+    fn from(value: VecDeque<T>) -> Self {
+        Self { storage: value }
     }
 }

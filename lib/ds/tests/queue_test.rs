@@ -2,6 +2,8 @@ use ds::queue::Queue;
 
 #[cfg(test)]
 mod queue_tests {
+    use std::collections::VecDeque;
+
     use super::*;
 
     #[test]
@@ -57,5 +59,35 @@ mod queue_tests {
 
         let first = queue.peek().unwrap();
         assert_eq!(*first, 3.3f64);
+    }
+
+    #[test]
+    fn test_queue_from() {
+        let queue1 = Queue::from(VecDeque::from([1, 2, 3, 4]));
+        let queue2: Queue<i64> = VecDeque::from([4, 3, 2, 1]).into();
+
+        let &peek1 = queue1.peek().unwrap();
+        let &peek2 = queue2.peek().unwrap();
+
+        assert_eq!(peek1, 1);
+        assert_eq!(peek2, 4);
+    }
+
+    #[test]
+    fn test_queue_default() {
+        let queue: Queue<bool> = Queue::default();
+
+        assert_eq!(queue.len(), 0);
+    }
+
+    #[test]
+    fn test_queue_clone() {
+        let queue: Queue<i32> = VecDeque::from([1, 2, 3, 4, 5]).into();
+
+        let cloned = queue.clone();
+
+        let &peek1 = cloned.peek().unwrap();
+        assert_eq!(peek1, 1);
+        assert_eq!(cloned.len(), 5);
     }
 }
