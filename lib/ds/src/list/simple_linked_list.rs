@@ -104,3 +104,13 @@ impl<T> Drop for SimpleLinkedList<T> {
         }
     }
 }
+
+impl<T> From<Vec<T>> for SimpleLinkedList<T> {
+    fn from(vec: Vec<T>) -> Self {
+        let mut list = SimpleLinkedList::new();
+        for item in vec.into_iter().rev() {
+            list.push(item);
+        }
+        return list;
+    }
+}
