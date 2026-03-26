@@ -26,4 +26,24 @@ mod models_test {
         assert_eq!(todo_item1.content, "HELLO");
         assert_eq!(todo_item2.content, "world!")
     }
+
+    #[test]
+    fn test_todo_item_serialization() {
+        let todo = TodoItemBuilder::default()
+            .content("Serialize me")
+            .priority(Priority::Medium)
+            .status(Status::InProgress)
+            .build()
+            .expect("Build Failure");
+
+        // Serialize to JSON
+        let json = serde_json::to_string(&todo).expect("Serialization failed");
+        println!("Serialized: {}", json);
+
+        // Deserialize back to TodoItem
+        let deserialized: TodoItem = serde_json::from_str(&json).expect("Deserialization failed");
+
+        assert_eq!(todo.content, deserialized.content);
+        assert_eq!(todo.status, deserialized.status);
+    }
 }

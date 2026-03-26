@@ -1,14 +1,15 @@
 use chrono::{Local, NaiveDate, NaiveDateTime, Utc};
 use derive_builder::Builder;
+use serde::{Deserialize, Serialize};
 
-#[derive(Debug, Clone)] // 터미널에 출력할 수 있게 해주는 마법의 문장
+#[derive(Debug, Clone, Serialize, Deserialize, PartialEq)] // 터미널에 출력할 수 있게 해주는 마법의 문장
 pub enum Status {
     Todo,
     InProgress,
     Done,
 }
 
-#[derive(Debug, Clone)]
+#[derive(Debug, Clone, Serialize, Deserialize, PartialEq)]
 pub enum Priority {
     Critical,
     High,
@@ -17,7 +18,7 @@ pub enum Priority {
     Optional,
 }
 
-#[derive(Builder, Debug)]
+#[derive(Builder, Debug, Deserialize, Serialize, PartialEq)]
 #[builder(setter(into))] // 1. &str을 넣으면 자동으로 String으로 변환해줌
 pub struct TodoItem {
     pub content: String,
