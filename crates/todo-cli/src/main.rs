@@ -1,3 +1,4 @@
+pub mod commands;
 use chrono::Local;
 
 use todo::models::{Priority, Status, TodoItem};

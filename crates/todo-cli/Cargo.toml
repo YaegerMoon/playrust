@@ -14,3 +14,4 @@ chrono = { workspace = true }
 
 # 이 패키지에서만 개별적으로 쓰는 라이브러리는 평소처럼 추가하세요.
 reqwest = { version = "0.11", features = ["json"] }
+clap = { version = "4.6.0", features = ["derive"] }
