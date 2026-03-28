@@ -1,16 +1,9 @@
 pub mod commands;
-use chrono::Local;
 
-use todo::models::{Priority, Status, TodoItem};
+use todo::models::{Priority, TodoItem};
 
 fn main() {
-    let todo = TodoItem {
-        content: "Hello world".to_string(),
-        priority: Priority::High,
-        deadline: None,
-        created_at: Local::now().naive_local(),
-        status: Status::InProgress,
-    };
+    let todo = TodoItem::new("Hello world", Priority::High, None);
 
     println!("{:?}", todo);
 }

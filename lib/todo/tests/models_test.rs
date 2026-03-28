@@ -28,6 +28,19 @@ mod models_test {
     }
 
     #[test]
+    fn test_todo_item_id() {
+        use uuid::Uuid;
+        let todo = TodoItemBuilder::default()
+            .content("Check ID")
+            .build()
+            .expect("Build Failure");
+
+        // The id should be a Uuid
+        let id: Uuid = todo.id;
+        assert!(!id.is_nil());
+    }
+
+    #[test]
     fn test_todo_item_serialization() {
         let todo = TodoItemBuilder::default()
             .content("Serialize me")

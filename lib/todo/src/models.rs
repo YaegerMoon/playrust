@@ -1,6 +1,7 @@
 use chrono::{Local, NaiveDate, NaiveDateTime, Utc};
 use derive_builder::Builder;
 use serde::{Deserialize, Serialize};
+use uuid::Uuid;
 
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq)] // 터미널에 출력할 수 있게 해주는 마법의 문장
 pub enum Status {
@@ -21,6 +22,9 @@ pub enum Priority {
 #[derive(Builder, Debug, Deserialize, Serialize, PartialEq)]
 #[builder(setter(into))] // 1. &str을 넣으면 자동으로 String으로 변환해줌
 pub struct TodoItem {
+    #[builder(default = "Uuid::new_v4()")]
+    pub id: Uuid,
+
     pub content: String,
 
     #[builder(default = "Priority::Medium")] // 2. 값이 없으면 Medium으로 설정
@@ -39,6 +43,7 @@ pub struct TodoItem {
 impl TodoItem {
     pub fn new(content: &str, priority: Priority, deadline: Option<NaiveDate>) -> Self {
         Self {
+            id: Uuid::new_v4(),
             content: content.to_string(),
             priority: priority,
             deadline: deadline,
